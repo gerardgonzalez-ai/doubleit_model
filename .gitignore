@@ -1,0 +1,24 @@
+# Virtual environment files
+venv/
+
+# Compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# Temporary and backup files
+*.bak
+*.swp
+*.swo
+*~
+
+# Operating system directories and files
+.DS_Store
+Thumbs.db
+
+# IDE specific directories and files (e.g., PyCharm, Visual Studio Code)
+.idea/
+.vscode/
