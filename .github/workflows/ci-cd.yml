@@ -44,3 +44,32 @@ jobs:
       run: |
         docker tag dev-container-doubleit ${{ secrets.DOCKER_HUB_USERNAME }}/doubletap:latest
         docker push ${{ secrets.DOCKER_HUB_USERNAME }}/doubletap:latest
+  
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Change to terraform directory
+      run: cd iac      
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform Init
+      run: terraform init
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Terraform Output
+      id: tf_output
+      run: echo "::set-output name=output::$(terraform output -json)"
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
