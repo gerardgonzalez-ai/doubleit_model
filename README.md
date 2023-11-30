@@ -1,6 +1,6 @@
 # Project Title
 
-Doubleit Model - Tenpo Test.
+Doubleit Model
 
 ## Description
 
